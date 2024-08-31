@@ -1,4 +1,4 @@
- 
+//  accommodationControllers
 const Accommodation = require('../models/Accommodation');
 
 exports.createAccommodation = async (req, res) => {

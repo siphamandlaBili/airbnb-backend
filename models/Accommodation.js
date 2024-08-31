@@ -1,3 +1,5 @@
+//Accomodation.js model
+
 const mongoose = require('mongoose');
 
 const accommodationSchema = new mongoose.Schema({
@@ -13,8 +15,8 @@ const accommodationSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    image: {
-        type: String,
+    images: {
+        type: [String],
         required: true,
     },
     rating: {
@@ -45,7 +47,14 @@ const accommodationSchema = new mongoose.Schema({
     description: {
         type: String,
         required:true
-    }
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
 });
+
+
 
 module.exports = mongoose.model('Accommodation', accommodationSchema);

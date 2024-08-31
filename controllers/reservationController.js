@@ -1,4 +1,5 @@
- 
+//reservationController
+
 const Reservation = require('../models/Reservation');
 const Accommodation = require('../models/Accommodation');
 
@@ -30,17 +31,42 @@ exports.createReservation = async (req, res) => {
   }
 };
 
-// Get reservations by host
+// reservationController.js
+
 exports.getReservationsByHost = async (req, res) => {
   try {
-    const host = req.user.id;
-    const accommodations = await Accommodation.find({ host });
-    const reservations = await Reservation.find({ accommodation: { $in: accommodations.map(acc => acc._id) } }).populate('user accommodation');
+    const hostId = req.user.id; // Get host ID from auth middleware
+    if (!hostId) {
+      return res.status(401).json({ error: 'Host not authenticated' });
+    }
+
+    // Find all accommodations listed by this host
+    const accommodations = await Accommodation.find({ createdBy: hostId });
+
+    if (!accommodations || accommodations.length === 0) {
+      return res.status(404).json({ message: 'No accommodations found for this host.' });
+    }
+
+    // Get all accommodation IDs listed by the host
+    const accommodationIds = accommodations.map(acc => acc._id);
+
+    // Find all reservations made to these accommodations
+    const reservations = await Reservation.find({ accommodation: { $in: accommodationIds } })
+      .populate('accommodation'); // Ensure that the `accommodation` field is populated
+
+    if (!reservations || reservations.length === 0) {
+      return res.status(404).json({ message: 'No reservations found for these accommodations.' });
+    }
+
     res.status(200).json(reservations);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Error fetching reservations by host:', error);
+    res.status(500).json({ message: 'Server error', error });
   }
 };
+
+
+
 
 // Get reservations by user
 exports.getReservationsByUser = async (req, res) => {

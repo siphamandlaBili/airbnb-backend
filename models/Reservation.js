@@ -1,4 +1,4 @@
- 
+ // reservation.js
 const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
@@ -8,6 +8,7 @@ const ReservationSchema = new mongoose.Schema({
   checkOutDate: { type: Date, required: true },
   guests: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
+  
 }, { timestamps: true });
 
 module.exports = mongoose.model('Reservation', ReservationSchema);
