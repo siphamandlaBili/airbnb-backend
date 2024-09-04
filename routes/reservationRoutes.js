@@ -20,6 +20,6 @@ router.get('/host', auth, getReservationsByHost);
 router.get('/user', auth, getReservationsByUser);
 
 // Route to delete a reservation
-router.delete('/:id', auth, deleteReservation);
+router.delete('/:id', deleteReservation);
 
 module.exports = router;

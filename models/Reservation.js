@@ -1,4 +1,4 @@
- // reservation.js
+ // reservation.js model
 const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
@@ -6,7 +6,7 @@ const ReservationSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   checkInDate: { type: Date, required: true },
   checkOutDate: { type: Date, required: true },
-  guests: { type: Number, required: true },
+  guests: { type: String, required: true },
   totalPrice: { type: Number, required: true },
   
 }, { timestamps: true });
