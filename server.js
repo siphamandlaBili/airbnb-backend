@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','DELETE'],
 }))
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

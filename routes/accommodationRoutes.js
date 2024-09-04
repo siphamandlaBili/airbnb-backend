@@ -21,7 +21,7 @@ router.get('/', getAllAccommodations);
 router.get('/:id', getAccommodationById);
 
 // Route to delete an accommodation by ID
-router.delete('/:id', auth, deleteAccommodation);
+router.delete('/:id', deleteAccommodation);
 
 // Route to get all listings created by a specific user
 router.get('/user/:userId', auth, async (req, res) => {
